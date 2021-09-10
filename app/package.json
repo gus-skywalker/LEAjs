@@ -22,7 +22,6 @@
     "url": "https://github.com/macaroots/LEAjs/issues"
   },
   "homepage": "https://github.com/macaroots/LEAjs#readme",
-  "devDependencies": {},
   "dependencies": {
     "ejs": "^3.1.6",
     "express": "^4.17.1",
