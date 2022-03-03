@@ -1,0 +1,116 @@
+@import url('https://fonts.googleapis.com/css?family=Barrio');
+:root {
+    --largura: 64px;
+    --color: #003f66;
+    --bg-color: white;
+    --fonte-logo: Barrio;
+    --fonte-titulo: Nova Square;
+    --fonte-texto: Tenor Sans;
+    counter-reset: secao;
+    counter-reset: h3counter;
+    counter-reset: h4counter;
+    counter-reset: figura;
+}
+.logo {
+    /**/font-family: var(--fonte-logo);
+    background: var(--color);
+    color: var(--bg-color);/**/
+    display: flex;
+    flex-grow: 0;
+    flex-shrink: 0;
+    justify-content: center;
+    font-weight: normal;
+    font-size: calc(var(--largura)*0.75);
+    line-height: var(--largura);
+    height: var(--largura);
+    width: var(--largura);
+    border-radius: calc(var(--largura)*0.1);
+}
+#auth, #license, .Page {
+    background: var(--bg-color);
+    padding: 0.5em;
+    border-radius: 5px;
+}
+body {
+    background: var(--color);
+}
+.Page {
+    max-width: 960px;
+    margin: auto;
+    padding: 1em;
+}
+h2 {
+    counter-increment: secao;
+    counter-reset: subsecao;
+}
+h2::before {
+    content: counter(secao) ' ';
+}
+h3 {
+    counter-increment: subsecao;
+    counter-reset: subsubsecao;
+}
+h3::before {
+    content: counter(secao) '.' counter(subsecao) ' ';
+}
+h4 {
+    counter-increment: subsubsecao;
+}
+h4::before {
+    content: counter(secao) '.' counter(subsecao) '.' counter(subsubsecao) ' ';
+}
+p, li {
+    line-height: 1.5em;
+}
+p {
+    text-indent: 3em;
+}
+a {
+    text-decoration: none;
+    color: var(--color);
+}
+a:hover {
+    text-decoration: underline;
+}
+figure {
+    display: inline-block;
+    vertical-align: middle;
+}
+section > div {
+    text-align: center;
+}
+figcaption {
+    text-align: left;
+    
+}
+figcaption::before {
+    counter-increment: figura;
+    content: 'Figura ' counter(secao) '.' counter(figura) ': ';
+}
+img {
+    max-width: 100%;
+}
+
+pre {
+  background: #333;
+  color: #f1f1f1;
+  padding: 10px 16px;
+  border-radius: 2px;
+  border-top: 4px solid #00aeef;
+  -moz-box-shadow: inset 0 0 10px #000;
+  box-shadow: inset 0 0 10px #000;
+  counter-reset: line;
+}
+pre span {
+  /*display: block;*/
+  /*line-height: 1.5rem;*/
+}
+pre span:before {
+  counter-increment: line;
+  content: counter(line);
+  display: inline-block;
+  border-right: 1px solid #ddd;
+  padding: 0 .5em;
+  margin-right: .5em;
+  color: #aaa;
+}

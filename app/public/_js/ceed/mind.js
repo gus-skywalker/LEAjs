@@ -33,7 +33,11 @@ import {JSBrain} from './jsbrain.js';
 export function NaiveMind(name, brain) {
     const self = this;
 	this.setName = function(name) {
-		let names = name.split(' ');
+		name = name.replace(new RegExp('\\.', 'g'), '_');
+		let names = name.split(' ').map(function (name) {
+			return name.charAt(0).toUpperCase() + name.slice(1);
+		});
+
 		names.push('Naive');
 		this.names = names;
 	};
@@ -197,12 +201,7 @@ function See(mind) {
             mind.get(type).then(function (action) {
                 if (action != null) {
                     // act() já lida com os erros
-                    try {
-                        mind.act(action, perception.info).then(resolve).catch(reject);
-                    }
-                    catch (e) {
-                        mind.errorBehavior.act([args, e], resolve, reject);
-                    }
+                    mind.act(action, perception.info).then(resolve).catch(reject);
                 }
                 else {
                     /*
@@ -356,7 +355,7 @@ function Error(mind) {
 			let e = args[1];
 			let action = args[0][0];
 			let target = args[0][1];
-			console.trace(mind + " - ERROR:", action, "(" + target + ") - ", typeof(e), ':', e);
+			console.trace(mind + " - ERROR:" + action.name + "(" + target + ") - ", typeof(e), ':', e);
 		} catch (e) {
 			console.error('CRITICAL ERROR', e);
             reject(e)
@@ -371,7 +370,7 @@ function Act(mind) {
 	this.mind = mind;
 	let este = this;
 	este.log = false;
-	this.act = function(args, resolve, reject) {
+	this.act = async function(args, resolve, reject) {
 		try {
 			let action = args[0];
 			let target = args[1];
@@ -381,7 +380,7 @@ function Act(mind) {
 			if (este.log) {
 				console.log('Act!', mind.toString(), action);
 			}
-			action.act(target, resolve, reject);
+			await action.act(target, resolve, reject);
 		}
 		catch (e) {
 			// TODO acho que é algo como o de baixo, mas tem que evitar repetição
