@@ -7,6 +7,7 @@
  */
 import {HTTPAgent} from './agent.js';
 export function AjaxBrain(endereco) {
+    const self = this;
 	if (endereco == null) {
 		this.endereco = '/LEA/ce/brain/';
 	}
@@ -15,9 +16,18 @@ export function AjaxBrain(endereco) {
 	}
 
 	this.agent = new HTTPAgent(this.endereco);
+    this.cached = false;
 	let responses = {};
 	this.responses = responses;
-	
+    this.setCache = function (text, response) {
+//         responses[text] = response;
+        localStorage.setItem(text, JSON.stringify(response));
+    }
+    this.getCache = function (text) {
+//         return responses[text];
+        return JSON.parse(localStorage.getItem(text));
+    }
+    
 	this.get = function (symbol) {
 		return new Promise((resolve, reject) => {
             if (symbol == null) {
@@ -28,15 +38,18 @@ export function AjaxBrain(endereco) {
                     info: symbol
                 };
             }
-            /*/
+            
             // cache simples
-            let text = JSON.stringify(symbol);
-            let oldResponse = responses[text];
-            if (oldResponse) {
-                callback(oldResponse);
-                return;
+            let text;
+            if (self.cached) {
+                text = JSON.stringify(symbol);
+                let oldResponse = self.getCache(text);
+                if (oldResponse) {
+                    resolve(oldResponse);
+                    return;
+                }
             }
-            /**/
+            
             $.post(this.endereco + "gets", {
                 impl: symbol.impl,
                 id: symbol.id,
@@ -45,7 +58,9 @@ export function AjaxBrain(endereco) {
                 busca: symbol.busca,
                 ordem: symbol.ordem
             }, function (response) {
-                //responses[text] = response;
+                if (self.cached) {
+                    self.setCache(text, response);
+                }
                 resolve(response);
             });
         });
@@ -63,7 +78,7 @@ export function AjaxBrain(endereco) {
             });
         });
 	};
-	this.tie = function (no, callback) {
+	this.tie = function (no) {
 		return new Promise((resolve, reject) => {
             $.post(this.endereco + "tie", {
                 a: no.a,
@@ -83,19 +98,23 @@ export function AjaxBrain(endereco) {
         });
 	};
 	this.reason = function (no) {
-		return new Promise((resolve, reject) => {
-            /*/
+        return new Promise((resolve, reject) => {
             // cache simples
-            let text = JSON.stringify(no);
-            let oldResponse = responses[text];
-            if (oldResponse) {
-                callback(oldResponse);
-                return;
+            let text;
+            if (self.cached) {
+                text = JSON.stringify(no);
+                let oldResponse = self.getCache(text);
+                if (oldResponse) {
+                    resolve(oldResponse);
+                    return;
+                }
             }
-            /**/
+            
             no = this.getClearLink(no);
             $.get(this.endereco + "reason", no, function (response) {
-                //responses[text] = response;
+                if (self.cached) {
+                    self.setCache(text, response);
+                }
                 resolve(response);
             });
         });

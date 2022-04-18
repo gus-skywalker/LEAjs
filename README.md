@@ -100,6 +100,21 @@ lea.see('listen', {
 git clone https://github.com/macaroots/exemplo_node.git
 ```
 
+## Criar arquivo .env
+```
+touch .env
+```
+
+## Criar certificado auto-assinado para HTTPS
+```
+openssl req -x509 -newkey rsa:4096 -keyout selfsigned.key -out selfsigned.crt -nodes -days 365 -subj "/CN=localhost/O=TIIA"
+```
+
+## Criar certificado com parâmetros Diffie-Hellman
+```
+openssl dhparam -out dhparam.pem 4096
+```
+
 ## Executar
 No próprio computador:
 ```
