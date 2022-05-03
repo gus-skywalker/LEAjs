@@ -5,7 +5,7 @@ new (function Listen() {
         const app = express();
 
         // Escolhe HTTPS ou HTTP
-        /**/
+        /*/
         let fs = await import('fs');
         let certFilename = process.env.CERT_FILENAME || 'server.cert';
         let keyFilename = process.env.KEY_FILENAME || 'server.key';

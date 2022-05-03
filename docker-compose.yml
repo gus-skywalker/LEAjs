@@ -11,9 +11,9 @@ services:
     volumes:
       - ./app:/home/node/app
       - node_modules:/home/node/app/node_modules
-      - ./selfsigned.crt:/home/node/app/server.cert
-      - ./selfsigned.key:/home/node/app/server.key
-      - ./dhparam.pem:/home/node/app/dhparam-2048.pem
+      - ./certs/selfsigned.crt:/home/node/app/server.cert
+      - ./certs/selfsigned.key:/home/node/app/server.key
+      - ./certs/dhparam.pem:/home/node/app/dhparam-2048.pem
     #links:
       #- db
     #depends_on:

@@ -1,0 +1,7 @@
+.list {
+    display: flex;
+    flex-wrap: nowrap;
+}
+.item {
+    width: 100em;
+}

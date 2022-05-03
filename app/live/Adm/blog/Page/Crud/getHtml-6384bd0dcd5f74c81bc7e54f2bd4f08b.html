@@ -1,0 +1,35 @@
+<section>
+    <h1>Blog</h1>
+    <form onsubmit="event.preventDefault(); getAgent(this).see('onSubmit', this);">
+
+        <p id="mensagem"></p>
+        <input name="id" value="0" type="hidden">
+        <label>
+            <span>
+               Título
+            </span>
+            <input name="titulo" type="text">
+        </label>
+        <label>
+            <span>
+               Texto
+            </span>
+            <textarea name="texto"></textarea>
+        </label>
+        <input type="submit">
+    </form>
+</section>
+<section>
+	<button onclick="getAgent(this).see('list');">Listar</button>
+	<table>
+	    <thead>
+    		<tr> 
+    			<th>ID</th>
+    			<th>Título</th>
+    			<th>Data</th>
+    			<th></th>
+    		</tr> 
+	    </thead>
+		<tbody class="list"></tbody>
+	</table>
+</section>

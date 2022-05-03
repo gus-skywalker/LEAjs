@@ -6,3 +6,4 @@ test_agents/
 selfsigned.crt
 selfsigned.key
 dhparam.pem
+.DS_Store

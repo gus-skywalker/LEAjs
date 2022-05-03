@@ -1,0 +1,33 @@
+<section>
+    <h1>Exemplo de formulário</h1>
+    <form onsubmit="event.preventDefault(); getAgent(this).see('onSubmit', this);">
+        <p>Trabalhe Conosco</p>
+        <p id="mensagem"></p>
+        <input name="id" value="0" type="hidden">
+        <label>
+            <span>
+               Nome Completo
+            </span>
+            <input name="nome" type="text">
+        </label>
+        <label>
+            <span>
+               Email
+            </span>
+            <input name="email" type="number">
+        </label>
+        <label>
+            <span>
+               Telefone
+            </span>
+            <input name="telefone" type="number">
+        </label>
+        <label>
+            <span>
+               Mensagem
+            </span>
+            <textarea name="mensagem"></textarea>
+        </label>
+        <input type="submit">
+    </form>
+</section>
