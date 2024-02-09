@@ -90,14 +90,15 @@ Iniciando o servidor.
 ```javascript
 lea.see('listen', {
 	hostname: '127.0.0.1', 
-	port: 3000
+	port: 443, 
+	http_port: 80
 });
 ```
 
 # Instruções de uso
 ## Clonar repositório:
 ```
-git clone https://github.com/macaroots/exemplo_node.git
+git clone https://github.com/macaroots/LEAjs.git
 ```
 
 ## Criar arquivo .env
@@ -107,12 +108,9 @@ touch .env
 
 ## Criar certificado auto-assinado para HTTPS
 ```
+mkdir -p certs &&
+cd certs &&
 openssl req -x509 -newkey rsa:4096 -keyout selfsigned.key -out selfsigned.crt -nodes -days 365 -subj "/CN=localhost/O=TIIA"
-```
-
-## Criar certificado com parâmetros Diffie-Hellman
-```
-openssl dhparam -out dhparam.pem 4096
 ```
 
 ## Executar

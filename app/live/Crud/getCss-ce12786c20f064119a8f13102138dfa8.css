@@ -1,0 +1,8 @@
+.Page form label {
+    display: table-row;
+}
+.Page form label  * {
+    display: table-cell;
+    padding-right: 1em;
+    vertical-align: top;
+}
